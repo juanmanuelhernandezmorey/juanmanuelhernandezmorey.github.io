@@ -1,126 +1,143 @@
 :root {
-  --bg: #111214;
-  --card-bg: #1a1b1e;
-  --text: #f0f0f5;
-  --muted: #a1a1b5;
-  --accent: #ffd27c;     /* toque cálido artístico */
-  --border: #2a2b31;
+  --bg: #1b1b1e;        /* fondo general, gris muy oscuro */
+  --card-bg: #242428;   /* fondo de las tarjetas */
+  --text: #e4e4e8;      /* texto principal, gris claro */
+  --muted: #9b9ba3;     /* texto secundario */
+  --border: #3a3a42;    /* bordes suaves */
+  --accent: #f5f5f5;    /* color de acento para botones */
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  background: radial-gradient(circle at top, #202028 0%, var(--bg) 55%);
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
 }
 
-main {
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
 }
 
-h1 {
-  font-size: 2.2rem;
+.page-header {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  margin-bottom: 1.5rem;
-  color: var(--accent);
-  text-shadow: 0 0 8px rgba(255, 210, 124, 0.4);
+  margin: 0;
 }
 
-.subtitle {
-  font-size: 1rem;
-  color: var(--muted);
-  margin-bottom: 2.8rem;
-  max-width: 60ch;
-  margin-left: auto;
-  margin-right: auto;
+.intro {
+  margin-top: 0.75rem;
+  max-width: 70ch;
+  font-size: 0.95rem;
   line-height: 1.6;
+  color: var(--muted);
 }
 
-/*--- GRID DE TARJETAS ---*/
+/* Galería responsive */
 
-.grid {
+.gallery {
   display: grid;
-  gap: 1.8rem;
-  grid-template-columns: 1fr;
-  padding: 0 1rem;
+  gap: 1.5rem;
+  grid-template-columns: 1fr; /* móvil: una columna */
+  margin-top: 2rem;
 }
 
+/* Tablet: dos columnas */
 @media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/*--- TARJETA INDIVIDUAL ---*/
+/* Escritorio ancho: tres columnas */
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 
 .card {
   background: var(--card-bg);
+  border-radius: 12px;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 0 0 1.2rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.35),
-    0 0 10px rgba(255, 210, 124, 0.25);
-  border-color: var(--accent);
-}
-
-/* Miniaturas verticales */
-.card .thumb {
+/* Miniaturas verticales 3:4 aprox. */
+.card img {
+  display: block;
   width: 100%;
-  height: 260px;       /* vertical 3:4 aprox. */
-  object-fit: cover;
+  height: 360px;            /* vertical 3:4 aprox. */
+  object-fit: cover;        /* recorte elegante sin distorsión */
   border-bottom: 1px solid var(--border);
-  display: block;
 }
 
-/* Contenido textual de la tarjeta */
-.card a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  padding: 1rem 1.1rem 0;
+/* Bloque de texto dentro de la tarjeta */
+
+.card figcaption {
+  padding: 0.9rem 1rem 1rem;
 }
 
 .card h2 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.45rem;
-  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+  font-weight: 500;
 }
 
-.card p {
-  font-size: 0.85rem;
+.meta {
+  font-size: 0.8rem;
   color: var(--muted);
-  line-height: 1.4;
+  margin-bottom: 0.7rem;
+}
+
+.actions {
   margin-top: 0.4rem;
 }
 
+.button {
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  background: transparent;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.button:hover {
+  background: var(--accent);
+  color: #151518;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
 /* Footer */
-footer {
-  margin-top: 2rem;
-  font-size: 0.75rem;
+
+.page-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
   color: var(--muted);
 }
